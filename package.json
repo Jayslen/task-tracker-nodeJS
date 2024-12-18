@@ -1,0 +1,32 @@
+{
+  "name": "task-tracker-node",
+  "version": "1.0.0",
+  "description": "A nodeJS app to create, update and delete tasks",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jayslen/task-tracker-nodeJS.git"
+  },
+  "keywords": [
+    "nodeJS",
+    "task",
+    "task-tracker",
+    "roadmap-sh"
+  ],
+  "author": "Jayslen Rojas Serrano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jayslen/task-tracker-nodeJS/issues"
+  },
+  "homepage": "https://github.com/Jayslen/task-tracker-nodeJS#readme",
+  "devDependencies": {
+    "standard": "^17.1.2"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}
