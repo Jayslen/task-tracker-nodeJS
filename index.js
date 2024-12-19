@@ -29,13 +29,32 @@ switch (action) {
     break
 
   case 'add':
-    tasks.add({ name: arg1, id: tasks.id, date: new Date().toLocaleString(), status: 'not-done' })
+    tasks.add({ name: arg1, id: tasks.id, date: new Date().toLocaleString(), status: 'todo' })
+    updateFile({ tasks: tasks.tasks })
+    break
+
+  case 'update':
+    tasks.update({ id: arg1, newName: arg2 })
+    updateFile({ tasks: tasks.tasks })
+    break
+
+  case `mark-${action.slice(5)}`:
+    if (tasks.tasksStatus.includes(action.slice(5))) {
+      tasks.updateStatus({ id: arg1, newStatus: action.slice(5) })
+      updateFile({ tasks: tasks.tasks })
+    }
+    break
+
+  case 'delete':
+    tasks.delete({ id: arg1 })
+    console.log('Task deleted')
     updateFile({ tasks: tasks.tasks })
     break
 
   case undefined:
     console.log('Not command was introduced')
     break
+
   default:
     console.log(`Actions '${arg1} does not exit'`)
     break
