@@ -1,28 +1,36 @@
 import { TasksList } from './tasks-class.js'
 import { readFile, writeFile } from 'node:fs/promises'
 
-const defaultValues = { defaultTasks: [], defaultId: 0 }
+const initialValues = { savedTasks: [], savedId: 0 }
 const [action, arg1, arg2] = process.argv.slice(2)
 
-try {
-  const savedTasks = await readFile('task.json', { encoding: 'utf-8' })
-  const maxId = Math.max(...JSON.parse(savedTasks).map(value => value.id))
-  defaultValues.defaultTasks.push(...JSON.parse(savedTasks))
-  defaultValues.defaultId = maxId
-} catch (e) {
-  if (e.code === 'ENOENT') {
-    writeFile('task.json', JSON.stringify([]))
-  } else {
-    console.error('Something happend')
-    process.exit(1)
+const updateFile = ({ tasks }) => {
+  try {
+    writeFile('task.json', JSON.stringify(tasks))
+  } catch {
+    console.log('error')
   }
 }
 
-const tasks = new TasksList(defaultValues.defaultTasks)
+try {
+  const savedTasks = await readFile('task.json', { encoding: 'utf-8' })
+  const maxId = Math.max(...JSON.parse(savedTasks).map(value => value.id)) + 1
+  initialValues.savedTasks.push(...JSON.parse(savedTasks))
+  initialValues.savedId = maxId
+} catch (e) {
+  writeFile('task.json', JSON.stringify([]))
+}
+
+const tasks = new TasksList(initialValues.savedTasks, initialValues.savedId)
 
 switch (action) {
   case 'list':
     tasks.list({ status: arg1 })
+    break
+
+  case 'add':
+    tasks.add({ name: arg1, id: tasks.id, date: new Date().toLocaleString(), status: 'not-done' })
+    updateFile({ tasks: tasks.tasks })
     break
 
   case undefined:
