@@ -1,12 +1,8 @@
 export class TasksList {
   constructor (savedTasks = [], savedId = 0) {
     this.tasks = savedTasks
-    this._id = savedId
-    this._tasksStatus = ['done', 'not done', 'in-progress']
-  }
-
-  get id () {
-    return this._id
+    this.id = savedId
+    this.tasksStatus = ['done', 'todo', 'in-progress']
   }
 
   showTasks (tasks) {
@@ -28,5 +24,25 @@ export class TasksList {
 
   add (task) {
     this.tasks.push(task)
+  }
+
+  update ({ id, newName }) {
+    const currentTasks = this.tasks[id]
+    if (!currentTasks && !newName) {
+      console.log('The id is not valid or the description is empty')
+      process.exit(1)
+    }
+    const updatedTasks = this.tasks.with(id, { ...currentTasks, name: newName })
+    this.tasks = updatedTasks
+  }
+
+  updateStatus ({ id, newStatus }) {
+    const currentTasks = this.tasks[id]
+    if (!currentTasks && !newStatus) {
+      console.log('The id is not valid or the status is empty')
+      process.exit(1)
+    }
+    const updatedTasks = this.tasks.with(id, { ...currentTasks, status: newStatus })
+    this.tasks = updatedTasks
   }
 }

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Hacer tareas",
+    "id": 0,
+    "date": "19/12/2024, 10:28:42 a.m.",
+    "status": "not-done"
+  },
+  {
+    "name": "Ir al gym",
+    "id": 1,
+    "date": "19/12/2024, 10:28:47 a.m.",
+    "status": "in-progress"
+  },
+  {
+    "name": "Hacer compra",
+    "id": 2,
+    "date": "19/12/2024, 10:28:53 a.m.",
+    "status": "not-done"
+  }
+]
